@@ -1,63 +1,42 @@
-/**
- * @file webpack.config.js
- * @author Amit Agarwal
- * @email amit@labnol.org
- *
- * Google Apps Script Starter Kit
- * https://github.com/labnol/apps-script-starter
- */
-
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const GasPlugin = require('gas-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const webpack = require('webpack');
+import path from 'path';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import GasPlugin from 'gas-webpack-plugin';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import webpack from 'webpack';
 
 const getSrcPath = (filePath) => {
+  // eslint-disable-next-line no-undef
   const src = path.resolve(__dirname, 'src');
   return path.posix.join(src.replace(/\\/g, '/'), filePath);
 };
 
 module.exports = {
   mode: 'production',
-  context: __dirname,
-  entry: getSrcPath('/index.js'),
-  output: {
-    filename: `[contenthash].js`,
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
+  entry: getSrcPath('/index.ts'),
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    libraryTarget: 'var',
+    library: 'sl',
+    clean: true,
   },
   optimization: {
     minimize: false,
   },
   performance: {
     hints: false,
-  },
-  watchOptions: {
-    ignored: ['**/dist', '**/node_modules'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [['@babel/preset-env', { targets: { node: 'current' } }]],
-            plugins: [
-              [
-                '@babel/plugin-proposal-object-rest-spread',
-                { loose: true, useBuiltIns: true },
-              ],
-            ],
-          },
-        },
-      },
-    ],
   },
   plugins: [
     new ESLintPlugin(),
@@ -76,6 +55,11 @@ module.exports = {
         {
           from: getSrcPath('../functions/*.js'),
           to: '[name][ext]',
+          noErrorOnMissing: true,
+        },
+        {
+          from: getSrcPath('../src/gas/*.js'),
+          to: 'gas_[name][ext]',
           noErrorOnMissing: true,
         },
         {
