@@ -32,4 +32,20 @@ export class Product {
   isStockItem() {
     return this.favorite == 'V';
   }
+
+  //TODO: move test
+  static mergeAndAddAmounts(first: Product, second: Product) {
+    if (first && second) {
+      return new Product(
+        undefined,
+        undefined,
+        first.actualAmount + second.actualAmount,
+        first.planAmount + second.planAmount
+      )
+        .merge(first)
+        .merge(second);
+    } else {
+      return first || second;
+    }
+  }
 }

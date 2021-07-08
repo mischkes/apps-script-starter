@@ -1,12 +1,10 @@
 import { Product } from './product';
 import fromEntries from 'object.fromentries';
 
-export class Products {
-  private readonly products: Map<string, Product>;
+export class ProductsInput {
+  private readonly products = new Map<string, Product>();
 
   constructor(range: Array<Array<any>>) {
-    this.products = new Map<string, Product>();
-
     if (range) {
       this.loadProducts(range);
     }
@@ -36,20 +34,9 @@ export class Products {
     );
   }
 
-  add(product: Product): Products {
+  add(product: Product): ProductsInput {
     const existing = this.products.get(product.key);
-    let add = product;
-
-    if (existing) {
-      add = new Product(
-        undefined,
-        undefined,
-        existing.actualAmount + add.actualAmount,
-        existing.planAmount + add.planAmount
-      )
-        .merge(existing)
-        .merge(product);
-    }
+    const add = Product.mergeAndAddAmounts(product, existing);
 
     this.products.set(product.key, add);
     return this;

@@ -8,5 +8,13 @@
     "allowJs": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "downlevelIteration": true,
+    "lib": [
+      "es5",
+      "ES2019",
+      "ES2019.Object",
+      "ES2015.collection",
+      "ES2015.iterable"
+    ]
   }
 }
