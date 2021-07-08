@@ -1,5 +1,5 @@
 /* Written by Sebastian Mischke */
-import { entries } from './util.js';
+import { entries } from '../util.js';
 
 export class Product {
   readonly actualAmount: number;

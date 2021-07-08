@@ -7,6 +7,7 @@ enum Row {
   key,
 }
 
+//TODO: filter Stock products
 export class Meals {
   readonly products = new Map<string, Product>();
 

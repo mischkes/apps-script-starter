@@ -1,7 +1,7 @@
 import { Product } from './product';
 import fromEntries from 'object.fromentries';
 
-export class ProductsInput {
+export class ShoppingPlan {
   private readonly products = new Map<string, Product>();
 
   constructor(range: Array<Array<any>>) {
@@ -34,7 +34,7 @@ export class ProductsInput {
     );
   }
 
-  add(product: Product): ProductsInput {
+  private add(product: Product): ShoppingPlan {
     const existing = this.products.get(product.key);
     const add = Product.mergeAndAddAmounts(product, existing);
 

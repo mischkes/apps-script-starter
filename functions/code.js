@@ -5,4 +5,3 @@ let config = {
   productRepoRangeName: 'productsRepo',
   homeLocationsRangeName: 'cfgHomeLocations'
 }
-

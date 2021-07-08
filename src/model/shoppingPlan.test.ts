@@ -1,4 +1,4 @@
-import { ProductsInput } from './productsInput';
+import { ShoppingPlan } from './shoppingPlan';
 import { describe, expect, it, test } from '@jest/globals';
 import { Product } from './product';
 
@@ -9,7 +9,7 @@ describe('Products', () => {
       ['V', 'Zwieback', '', 2, 'Vorratskammer', ''],
     ];
 
-    const actual = new ProductsInput(products).asMap;
+    const actual = new ShoppingPlan(products).asMap;
 
     const expected = {
       HMilch: new Product(
@@ -33,7 +33,7 @@ describe('Products', () => {
       ['V', 'HMilch', undefined, 3],
     ];
 
-    const actual = new ProductsInput(products).asMap;
+    const actual = new ShoppingPlan(products).asMap;
 
     const expected = {
       HMilch: new Product('HMilch', 'V', 1, 8, 'Wohnzimmer', 'links'),
@@ -49,7 +49,7 @@ describe('Products', () => {
       ['', 'Schokolade'],
     ];
 
-    const actual = new ProductsInput(products).asMap;
+    const actual = new ShoppingPlan(products).asMap;
 
     const expected = {
       HMilch: {
