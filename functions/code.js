@@ -1,7 +1,3 @@
-let config = {
-  mealsRangeName: 'meals',
-  recipesRangeName: 'recipes',
-  productInputRangeName: 'productsInput',
-  productRepoRangeName: 'productsRepo',
-  homeLocationsRangeName: 'cfgHomeLocations'
+function productIntegrationTest() {
+  Logger.log(JSON.stringify(sl.getMealsView()));
 }

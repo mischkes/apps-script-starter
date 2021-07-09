@@ -8,7 +8,6 @@ export class Ranges {
   static getRange(rangeName: string) {
     const range =
       SpreadsheetApp.getActiveSpreadsheet().getRangeByName(rangeName);
-    Logger.log('Range ' + rangeName + ': ' + JSON.stringify(range.getValues()));
     if (!range) throw new Error('Range not found: ' + rangeName);
     return range;
   }

@@ -1,11 +1,10 @@
-import path from 'path';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import GasPlugin from 'gas-webpack-plugin';
-import ESLintPlugin from 'eslint-webpack-plugin';
-import webpack from 'webpack';
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const GasPlugin = require('gas-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const webpack = require('webpack');
 
 const getSrcPath = (filePath) => {
-  // eslint-disable-next-line no-undef
   const src = path.resolve(__dirname, 'src');
   return path.posix.join(src.replace(/\\/g, '/'), filePath);
 };
@@ -20,7 +19,27 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
-    ],
+      module: {
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: [['@babel/preset-env', { targets: { node: 'current' } }]],
+          plugins: [
+            [
+              '@babel/plugin-proposal-object-rest-spread',
+              { loose: true, useBuiltIns: true },
+            ],
+          ],
+        },
+      },
+    },
+  ],
+},
+
+],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],

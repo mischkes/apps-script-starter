@@ -9,12 +9,19 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "downlevelIteration": true,
+    // have typing support for Map and more
     "lib": [
       "es5",
       "ES2019",
       "ES2019.Object",
       "ES2015.collection",
       "ES2015.iterable"
-    ]
+    ],
+    // from https://www.typescriptlang.org/docs/handbook/babel-with-typescript.html
+    // Ensure that .d.ts files are created by tsc, but not .js files
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    // Ensure that Babel can safely transpile files in the TypeScript project
+    "isolatedModules": true
   }
 }
